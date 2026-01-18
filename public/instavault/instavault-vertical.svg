@@ -1,0 +1,29 @@
+<svg viewBox="0 0 2818 1050" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&amp;display=swap');
+    </style>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Icon Group: Centered horizontally. Canvas Width = Text Width ~ 2818 (at 512pt). -->
+  <!-- Icon is 512 wide. Center = 1409. X = 1409 - 256 = 1153. -->
+  <g id="icon" transform="translate(1153, 0)">
+    <rect x="96" y="96" width="320" height="320" rx="48" fill="url(#g)" stroke="#ffffff" stroke-width="4"/>
+    <circle cx="256" cy="256" r="120" fill="#1e1e2e" stroke="#ffffff" stroke-width="4"/>
+    <rect x="208" y="224" width="96" height="64" rx="16" fill="#38bdf8"/>
+    <circle cx="256" cy="256" r="18" fill="#1e1e2e"/>
+    <circle cx="288" cy="236" r="6" fill="#1e1e2e"/>
+  </g>
+  
+  <!-- Text: Centered below icon. Gap ~ 64? -->
+  <!-- Icon Height 512. Text starts below. -->
+  <!-- Text Baseline: 512 + Gap + Ascender Height? -->
+  <!-- Text Y = 512 + 64 + (CapHeight ~ 350 for 512pt). -->
+  <!-- Let's start Baseline at 512 + 400 = 912. -->
+  <!-- Text Width 2818. Centered at 1409. (Text-anchor middle). -->
+  <text x="1409" y="912" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="800" font-size="512" fill="#1e1e2e" letter-spacing="-0.02em">InstaVault</text>
+</svg>
