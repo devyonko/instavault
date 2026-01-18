@@ -77,7 +77,7 @@ export default function LoginPage() {
                     <ParticleBackground />
 
                     {/* Login Form */}
-                    <div className="z-10 w-full flex justify-center">
+                    <div className="relative z-50 w-full flex justify-center pointer-events-auto">
                         <SpyXLoginForm
                             onSubmit={handleSubmit}
                             onForgotPassword={goToForgotPassword}

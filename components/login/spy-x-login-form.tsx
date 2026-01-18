@@ -46,7 +46,7 @@ export default function SpyXLoginForm({ onForgotPassword, onSubmit }: SpyXLoginF
             <button
                 type="button"
                 onClick={() => signIn('google')}
-                className="w-full h-14 bg-white hover:scale-[1.02] shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-lg rounded-xl flex items-center justify-center gap-3 transition-all duration-200 group"
+                className="relative z-50 cursor-pointer w-full h-14 bg-white hover:scale-[1.02] shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-lg rounded-xl flex items-center justify-center gap-3 transition-all duration-200 group"
             >
                 <Image
                     src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
