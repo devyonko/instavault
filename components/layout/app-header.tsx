@@ -73,10 +73,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             */}
 
             <div className="max-w-7xl mx-auto px-4 lg:px-8 w-full">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 lg:mb-10 lg:pt-8">
+                <div className="flex flex-row flex-wrap md:flex-nowrap items-center justify-between gap-4 mb-6 lg:mb-10 lg:pt-8">
 
                     {/* LEFT SLOT: Title & Subtitle */}
-                    <div className="w-full md:w-auto text-center md:text-left">
+                    <div className="order-1 w-auto md:w-auto text-left">
                         <h1 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent leading-tight">
                             {title}
                         </h1>
@@ -87,10 +87,14 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
                         )}
                     </div>
 
-                    {/* CENTER & RIGHT SLOTS Wrapper */}
-                    <div className="w-full md:w-auto flex flex-wrap items-center justify-center md:justify-end gap-3 lg:gap-4 relative z-0">
+                    {/* RIGHT SLOT (Mobile): Profile Menu -> Moves to Order 2 on Mobile (Top Right) */}
+                    <div className="order-2 md:order-3 relative z-50">
+                        <ProfileMenu />
+                    </div>
 
-                        {/* CENTER SLOT: Search (Optional) */}
+                    {/* CENTER SLOT: Search & Actions -> Moves to Order 3 on Mobile (New Row) */}
+                    <div className="order-3 md:order-2 w-full md:w-auto flex flex-wrap items-center justify-start md:justify-end gap-3 lg:gap-4 relative z-0">
+                        {/* Search (Optional) */}
                         {onSearch && (
                             <div className="w-full md:w-auto">
                                 <SearchBar
@@ -102,13 +106,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
                             </div>
                         )}
 
-                        {/* RIGHT SLOT: Custom Actions */}
+                        {/* Custom Actions */}
                         {children}
-
-                        {/* ALWAYS PRESENT: Profile Menu (Visible on all screens) */}
-                        <div className="relative z-50">
-                            <ProfileMenu />
-                        </div>
                     </div>
                 </div>
             </div>
