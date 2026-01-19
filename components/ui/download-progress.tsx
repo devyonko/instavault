@@ -3,7 +3,7 @@
 import React from 'react';
 import { useDownload } from '@/components/providers/download-provider';
 import { Minimize2, Maximize2, X, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function DownloadProgress() {
     const { activeDownload, minimizeDownload, maximizeDownload, closeDownload } = useDownload();
@@ -26,8 +26,8 @@ export function DownloadProgress() {
                     <div className="flex justify-between items-start mb-4 relative z-10">
                         <div className="flex items-center gap-3">
                             <div className={`p-2 rounded-lg ${activeDownload.status === 'error' ? 'bg-red-500/10 text-red-500' :
-                                    activeDownload.status === 'completed' ? 'bg-emerald-500/10 text-emerald-500' :
-                                        'bg-purple-500/10 text-purple-500'
+                                activeDownload.status === 'completed' ? 'bg-emerald-500/10 text-emerald-500' :
+                                    'bg-purple-500/10 text-purple-500'
                                 }`}>
                                 {activeDownload.status === 'downloading' && <Loader2 size={20} className="animate-spin" />}
                                 {activeDownload.status === 'completed' && <CheckCircle size={20} />}
@@ -70,8 +70,8 @@ export function DownloadProgress() {
                         <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
                             <motion.div
                                 className={`h-full rounded-full ${activeDownload.status === 'error' ? 'bg-red-500' :
-                                        activeDownload.status === 'completed' ? 'bg-emerald-500' :
-                                            'bg-gradient-to-r from-purple-500 to-pink-500'
+                                    activeDownload.status === 'completed' ? 'bg-emerald-500' :
+                                        'bg-gradient-to-r from-purple-500 to-pink-500'
                                     }`}
                                 initial={{ width: 0 }}
                                 animate={{ width: `${activeDownload.progress}%` }}
@@ -95,7 +95,7 @@ export function DownloadProgress() {
                     onClick={maximizeDownload}
                 >
                     <div className={`w-2 h-2 rounded-full ${activeDownload.status === 'downloading' ? 'bg-purple-500 animate-pulse' :
-                            activeDownload.status === 'completed' ? 'bg-emerald-500' : 'bg-red-500'
+                        activeDownload.status === 'completed' ? 'bg-emerald-500' : 'bg-red-500'
                         }`} />
                     <span className="text-sm font-medium text-white">
                         {Math.round(activeDownload.progress)}%
