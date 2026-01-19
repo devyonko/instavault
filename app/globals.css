@@ -535,3 +535,13 @@
     border: 1px solid rgba(168, 85, 247, 0.2);
   }
 }
+
+/* 🔥 FORCE INTERACTION FIX (PRODUCTION) */
+html, body, #__next {
+  pointer-events: auto !important;
+  cursor: auto !important;
+}
+button, a, input, select, textarea {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
