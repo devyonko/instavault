@@ -8,6 +8,7 @@ import { Plus, Loader2, FolderPlus } from 'lucide-react';
 import { FolderItem } from '@/components/folders/folder-item';
 import { SearchBar } from '@/components/ui/search-bar';
 import { HeaderButton } from '@/components/ui/header-button';
+import { AppHeader } from '@/components/layout/app-header';
 import { CACHE_KEYS, loadFromCache, saveToCache } from '@/lib/format-utils';
 
 // Gradients to cycle through for new folders
@@ -171,108 +172,104 @@ export default function FoldersPage() {
 
             <Sidebar />
 
-            <div className="flex-1 ml-0 lg:ml-[280px] p-6 lg:p-10 relative">
+            <div className="flex-1 ml-0 lg:ml-[280px] relative">
 
-                <header className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 pt-16 lg:pt-0">
-                    <div>
-                        <h1 className="text-[32px] font-bold text-white leading-tight">Collections</h1>
-                        <p className="text-white/60 text-[15px] mt-1">
-                            {loading ? "Syncing..." : `${folders.length} folders`}
-                        </p>
-                    </div>
+                {/* Header - Full Width Component */}
+                <AppHeader
+                    title="Collections"
+                    subtitle={loading ? "Syncing..." : `${folders.length} folders`}
+                    searchPlaceholder="Search folders..."
+                // Note: Search logic implementation deferred or connected if local state exists.
+                // Previous header had simple SearchBar without handler connection visible in snippet?
+                // Re-checking snippet: `placeholder="Search folders..." className="..." />` No onChange?
+                // Ah, comment said: "Note: onSearch logic would need to be implemented..."
+                // so I'll leave onSearch undefined or connect if I see a state.
+                // Just passing children for buttons.
+                >
+                    <HeaderButton
+                        variant="primary"
+                        onClick={() => setCreating(true)}
+                        icon={Plus}
+                        className="h-10"
+                    >
+                        New Folder
+                    </HeaderButton>
+                </AppHeader>
 
-                    <div className="flex flex-wrap items-center gap-4 relative z-0" suppressHydrationWarning={true}>
-                        <SearchBar
-                            variant="compact"
-                            placeholder="Search folders..."
-                            className="w-[180px] lg:w-[240px]"
-                        // Note: onSearch logic would need to be implemented in FoldersPage if filtering is desired
-                        />
-                        <HeaderButton
-                            variant="primary"
-                            onClick={() => setCreating(true)}
-                            icon={Plus}
-                            className="h-10"
-                        >
-                            New Folder
-                        </HeaderButton>
-                        <div className="relative z-50">
-                            <ProfileMenu />
+                <div className="max-w-7xl mx-auto px-6 lg:px-10 py-6 lg:py-10">
+                    {/* Grid matches AppHeader constraint */}
+
+                    {loading ? (
+                        <div className="flex flex-col items-center justify-center h-[50vh] text-gray-500 gap-4">
+                            <img src="/assets/anya-loading.gif" alt="Loading" className="w-24 h-24 lg:w-32 lg:h-32 object-cover rounded-xl opacity-80" />
+                            <p className="animate-pulse">Waku Waku! Loading folders...</p>
                         </div>
-                    </div>
-                </header>
+                    ) : (
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 pb-24">
 
-                {loading ? (
-                    <div className="flex flex-col items-center justify-center h-[50vh] text-gray-500 gap-4">
-                        <img src="/assets/anya-loading.gif" alt="Loading" className="w-24 h-24 lg:w-32 lg:h-32 object-cover rounded-xl opacity-80" />
-                        <p className="animate-pulse">Waku Waku! Loading folders...</p>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 pb-24">
-
-                        {/* New Folder Creation Card */}
-                        {creating && (
-                            <div className="w-full aspect-[6/5] flex flex-col items-center justify-center p-4 rounded-2xl bg-[#0f0f0f] border border-dashed border-[#6366f1]/50 shadow-[0_0_30px_-10px_rgba(99,102,241,0.3)] animate-in fade-in zoom-in-95 duration-300 relative">
-                                <form onSubmit={handleCreateFolder} className="w-full flex flex-col items-center gap-3">
-                                    <div className="p-3 bg-[#6366f1]/10 rounded-full">
-                                        <FolderPlus size={24} className="text-[#6366f1]" />
-                                    </div>
-                                    <input
-                                        autoFocus
-                                        type="text"
-                                        placeholder="Folder Name"
-                                        value={newFolderName}
-                                        onChange={(e) => setNewFolderName(e.target.value)}
-                                        className="w-full bg-black/50 border border-white/10 rounded-lg px-3 py-1.5 text-center text-sm text-white focus:outline-none focus:border-[#6366f1] transition-colors"
-                                    />
-                                    <div className="flex gap-2 w-full mt-1">
-                                        <button
-                                            type="button"
-                                            onClick={() => setCreating(false)}
-                                            className="flex-1 py-1 text-xs text-gray-400 hover:text-white transition-colors"
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            disabled={isSubmitting}
-                                            className="flex-1 py-1 bg-[#6366f1] text-white rounded-md text-xs font-medium hover:bg-[#4f46e5] disabled:opacity-50"
-                                        >
-                                            Create
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        )}
-
-                        {folders.length === 0 && !creating ? (
-                            <div className="col-span-full flex flex-col items-center justify-center py-20 opacity-50 text-center px-4">
-                                <img src="/assets/anya-empty.gif" alt="Empty" className="w-40 h-40 lg:w-48 lg:h-48 object-cover rounded-xl mb-6 opacity-70" />
-                                <h3 className="text-xl font-bold text-gray-400">No folders yet! 🥜</h3>
-                                <p className="text-gray-500 text-sm mt-2">Create your first folder to organize saved posts.</p>
-                                <button
-                                    onClick={() => setCreating(true)}
-                                    className="mt-6 text-[#6366f1] hover:underline font-medium"
-                                >
-                                    + Create first folder
-                                </button>
-                            </div>
-                        ) : (
-                            folders.map((folder, index) => (
-                                <div key={folder.id} className="w-full">
-                                    <FolderItem
-                                        folder={folder}
-                                        index={index}
-                                        gradient={GRADIENTS[index % GRADIENTS.length]}
-                                        onDelete={handleDeleteFolder}
-                                    />
+                            {/* New Folder Creation Card */}
+                            {creating && (
+                                <div className="w-full aspect-[6/5] flex flex-col items-center justify-center p-4 rounded-2xl bg-[#0f0f0f] border border-dashed border-[#6366f1]/50 shadow-[0_0_30px_-10px_rgba(99,102,241,0.3)] animate-in fade-in zoom-in-95 duration-300 relative">
+                                    <form onSubmit={handleCreateFolder} className="w-full flex flex-col items-center gap-3">
+                                        <div className="p-3 bg-[#6366f1]/10 rounded-full">
+                                            <FolderPlus size={24} className="text-[#6366f1]" />
+                                        </div>
+                                        <input
+                                            autoFocus
+                                            type="text"
+                                            placeholder="Folder Name"
+                                            value={newFolderName}
+                                            onChange={(e) => setNewFolderName(e.target.value)}
+                                            className="w-full bg-black/50 border border-white/10 rounded-lg px-3 py-1.5 text-center text-sm text-white focus:outline-none focus:border-[#6366f1] transition-colors"
+                                        />
+                                        <div className="flex gap-2 w-full mt-1">
+                                            <button
+                                                type="button"
+                                                onClick={() => setCreating(false)}
+                                                className="flex-1 py-1 text-xs text-gray-400 hover:text-white transition-colors"
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button
+                                                type="submit"
+                                                disabled={isSubmitting}
+                                                className="flex-1 py-1 bg-[#6366f1] text-white rounded-md text-xs font-medium hover:bg-[#4f46e5] disabled:opacity-50"
+                                            >
+                                                Create
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
-                            ))
-                        )}
-                    </div>
+                            )}
 
+                            {folders.length === 0 && !creating ? (
+                                <div className="col-span-full flex flex-col items-center justify-center py-20 opacity-50 text-center px-4">
+                                    <img src="/assets/anya-empty.gif" alt="Empty" className="w-40 h-40 lg:w-48 lg:h-48 object-cover rounded-xl mb-6 opacity-70" />
+                                    <h3 className="text-xl font-bold text-gray-400">No folders yet! 🥜</h3>
+                                    <p className="text-gray-500 text-sm mt-2">Create your first folder to organize saved posts.</p>
+                                    <button
+                                        onClick={() => setCreating(true)}
+                                        className="mt-6 text-[#6366f1] hover:underline font-medium"
+                                    >
+                                        + Create first folder
+                                    </button>
+                                </div>
+                            ) : (
+                                folders.map((folder, index) => (
+                                    <div key={folder.id} className="w-full">
+                                        <FolderItem
+                                            folder={folder}
+                                            index={index}
+                                            gradient={GRADIENTS[index % GRADIENTS.length]}
+                                            onDelete={handleDeleteFolder}
+                                        />
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    )}
 
-                )}
+                </div>
             </div>
         </div >
     );

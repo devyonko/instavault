@@ -117,14 +117,14 @@ export default function MediaInput({ onSaveSuccess }: MediaInputProps) {
                         <input
                             type="text"
                             placeholder="Paste Instagram URL..."
-                            className="flex-1 bg-transparent text-white px-4 py-3 focus:outline-none placeholder-gray-500 font-medium"
+                            className="flex-1 bg-transparent text-white px-4 py-3 focus:outline-none placeholder-gray-500 font-medium text-base md:text-sm"
                             value={url}
                             onChange={(e) => setUrl(e.target.value)}
                         />
                         <button
                             type="submit"
                             disabled={loading || !url}
-                            className="px-6 py-3 bg-[#6366f1] hover:bg-[#5558e6] text-white font-semibold rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                            className="px-4 md:px-6 py-3 bg-[#6366f1] hover:bg-[#5558e6] text-white font-semibold rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                         >
                             {loading ? <Loader2 className="animate-spin" size={20} /> : <Download size={20} />}
                             <span>Save</span>

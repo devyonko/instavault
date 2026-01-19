@@ -7,6 +7,7 @@ import NextImage from 'next/image';
 import Sidebar from '@/components/ui/sidebar';
 import ProfileMenu from '@/components/ui/profile-menu';
 import { SearchBar } from '@/components/ui/search-bar';
+import { AppHeader } from '@/components/layout/app-header';
 import DashboardHero from '@/components/dashboard/dashboard-hero';
 import StatsCard from '@/components/dashboard/stats-card';
 import RecentItemsCard from '@/components/dashboard/recent-items-card';
@@ -186,10 +187,10 @@ export default function HomePage() {
     const displayItems = activityItems.length > 0 ? activityItems : recentItems;
 
     return (
-        <div className='flex min-h-screen bg-transparent text-white font-sans overflow-hidden'>
+        <div className='flex min-h-screen bg-transparent text-white font-sans overflow-x-hidden'>
             <Sidebar />
 
-            <div className='flex-1 ml-[280px] relative h-screen overflow-y-auto bg-transparent'>
+            <div className='flex-1 lg:ml-[280px] ml-0 relative min-h-screen bg-transparent'>
                 <SaveToDriveModal
                     isOpen={showSaveModal}
                     onClose={() => setShowSaveModal(false)}
@@ -197,20 +198,13 @@ export default function HomePage() {
                     initialUrl={inputValue}
                 />
 
-                <div className="max-w-[1400px] mx-auto p-8 relative min-h-full">
-                    <header className="flex justify-between items-center mb-10 pt-4">
-                        <h1 className='text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent'>
-                            Dashboard
-                        </h1>
-
-                        <div className="flex items-center gap-4">
-                            <SearchBar className="transform scale-75 origin-right" />
-                            <NotificationBell />
-                            <div className="relative z-50">
-                                <ProfileMenu />
-                            </div>
-                        </div>
-                    </header>
+                <div className="max-w-[1400px] mx-auto p-4 lg:p-8 relative min-h-full pb-20 lg:pb-8">
+                    <AppHeader
+                        title="Dashboard"
+                        onSearch={() => { }} // Visual parity, functionality was not connected in source
+                    >
+                        <NotificationBell />
+                    </AppHeader>
 
                     {/* Dashboard Content */}
                     <DashboardHero
@@ -220,7 +214,7 @@ export default function HomePage() {
                         onSave={handleSave}
                     />
 
-                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-6 lg:gap-8 mt-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-6 lg:gap-8 mt-8 lg:mt-12">
                         {/* Stats Column */}
                         <div className="space-y-6 lg:space-y-8 h-full">
                             <StatsCard stats={stats} />

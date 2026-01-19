@@ -1,13 +1,25 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Github, Linkedin, Mail, ExternalLink, Code, BarChart, Layers, MapPin, Globe, Cpu } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Sidebar from '@/components/ui/sidebar';
 import { CardContainer, CardBody, CardItem } from '@/components/ui/three-d-card';
+import { ComingSoonModal } from '@/components/ui/coming-soon-modal';
+
+const developerProfile = {
+    name: "Tejas Deshpande",
+    role: "Full Stack Developer",
+    email: "xladetej@gmail.com",
+    linkedin: "https://www.linkedin.com/in/tejas-deshpande-1229691a6/",
+    github: "https://github.com/devyonko",
+    openToWork: true,
+};
 
 export default function AboutDevPage() {
+    const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
+
     return (
         <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-purple-500/30">
             <Sidebar />
@@ -25,7 +37,7 @@ export default function AboutDevPage() {
                             <p className="text-gray-400 mt-2 text-lg">Building digital experiences with code & passion.</p>
                         </div>
                         <div className="flex gap-2">
-                            <div className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-medium flex items-center gap-2">
+                            <div className={`px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-sm font-medium flex items-center gap-2 ${developerProfile.openToWork ? '' : 'hidden'}`}>
                                 <span className="relative flex h-2 w-2">
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -60,8 +72,8 @@ export default function AboutDevPage() {
                                 </div>
 
                                 <div className="mt-8">
-                                    <h2 className="text-3xl font-bold text-white mb-2">Tejas</h2>
-                                    <p className="text-purple-400 font-medium mb-4">Full Stack Developer</p>
+                                    <h2 className="text-3xl font-bold text-white mb-2">{developerProfile.name}</h2>
+                                    <p className="text-purple-400 font-medium mb-4">{developerProfile.role}</p>
                                     <p className="text-gray-400 leading-relaxed text-sm md:text-base max-w-md">
                                         Crafting robust applications with modern technologies.
                                         Specialized in Next.js ecosystems, high-performance UI, and seamless backend integration.
@@ -71,13 +83,13 @@ export default function AboutDevPage() {
                             </div>
 
                             <div className="mt-8 flex gap-3 relative z-10">
-                                <a href="https://github.com/devyonko" target="_blank" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/5 hover:border-white/20">
+                                <a href={developerProfile.github} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/5 hover:border-white/20">
                                     <Github className="w-5 h-5" />
                                 </a>
-                                <a href="#" className="p-2 rounded-lg bg-[#0077b5]/10 hover:bg-[#0077b5]/20 text-[#0077b5] transition-colors border border-current/10">
+                                <a href={developerProfile.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-[#0077b5]/10 hover:bg-[#0077b5]/20 text-[#0077b5] transition-colors border border-current/10">
                                     <Linkedin className="w-5 h-5" />
                                 </a>
-                                <a href="mailto:contact@example.com" className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition-colors flex items-center gap-2 text-sm">
+                                <a href={`mailto:${developerProfile.email}`} className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition-colors flex items-center gap-2 text-sm">
                                     <Mail className="w-4 h-4" />
                                     Contact Me
                                 </a>
@@ -112,7 +124,7 @@ export default function AboutDevPage() {
                                 <div className="space-y-2">
                                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Backend</p>
                                     <div className="flex flex-wrap gap-2">
-                                        {['Node.js', 'PostgreSQL', 'Prisma', 'Supabase'].map(tech => (
+                                        {['Node.js', 'PostgreSQL', 'Prisma', 'Supabase', 'Vercel'].map(tech => (
                                             <span key={tech} className="px-2 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-xs text-blue-300">
                                                 {tech}
                                             </span>
@@ -140,8 +152,8 @@ export default function AboutDevPage() {
                             className="col-span-1 bg-gradient-to-br from-slate-900 via-slate-900 to-black border border-white/10 rounded-3xl p-6 flex flex-col justify-center items-center relative group"
                         >
                             <div className="text-center">
-                                <div className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500">500+</div>
-                                <div className="text-xs text-gray-500 mt-1 uppercase tracking-widest font-medium">Contributions</div>
+                                <div className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500">Active</div>
+                                <div className="text-xs text-gray-500 mt-1 uppercase tracking-widest font-medium">Open-Source Contributor</div>
                             </div>
                         </motion.div>
 
@@ -241,7 +253,10 @@ export default function AboutDevPage() {
 
 
                         {/* 6. Project Card 2: Creative Portfolio (Span 2x2) */}
-                        <div className="col-span-1 md:col-span-2 row-span-2 min-h-[400px]">
+                        <div
+                            className="col-span-1 md:col-span-2 row-span-2 min-h-[400px] cursor-pointer"
+                            onClick={() => setIsPortfolioOpen(true)}
+                        >
                             <CardContainer className="inter-var w-full h-full">
                                 <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-blue-500/[0.1] dark:bg-black dark:border-white/[0.1] border-black/[0.1] w-full h-full rounded-3xl p-6 border flex flex-col justify-between overflow-hidden">
                                     <div className="relative z-10">
@@ -310,6 +325,12 @@ export default function AboutDevPage() {
 
                 </div>
             </div>
+            {/* Modals */}
+            <ComingSoonModal
+                isOpen={isPortfolioOpen}
+                onClose={() => setIsPortfolioOpen(false)}
+                feature="Portfolio"
+            />
         </div>
     );
 }

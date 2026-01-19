@@ -7,7 +7,7 @@ import Image from 'next/image';
 interface ComingSoonModalProps {
     isOpen: boolean;
     onClose: () => void;
-    feature: 'Community' | 'Subscription' | 'Help Center';
+    feature: 'Community' | 'Subscription' | 'Help Center' | 'Portfolio';
 }
 
 export function ComingSoonModal({ isOpen, onClose, feature }: ComingSoonModalProps) {
@@ -42,6 +42,16 @@ export function ComingSoonModal({ isOpen, onClose, feature }: ComingSoonModalPro
                 '🎥 Video tutorials',
                 '💡 Tips & tricks',
                 '🐛 Report issues'
+            ]
+        },
+        Portfolio: {
+            title: 'Creative Portfolio',
+            description: 'A showcase of 3D web experiences and UI experiments.',
+            features: [
+                '🎨 Interactive 3D Scenes',
+                '✨ WebGL Experiments',
+                '📱 UI/UX Case Studies',
+                '🚀 Live Demos'
             ]
         }
     };

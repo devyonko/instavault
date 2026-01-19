@@ -51,7 +51,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         return (
             <div ref={containerRef} className={cn("relative z-50", className)}>
                 {isMobileExpanded ? (
-                    <div className="absolute right-0 -top-2 flex items-center gap-2 bg-[#18181b] p-2 border border-white/10 rounded-xl shadow-2xl animate-in fade-in slide-in-from-right-5 w-[calc(100vw-80px)] max-w-[350px]">
+                    <div className="absolute right-0 -top-2 flex items-center gap-2 bg-[#18181b] p-2 border border-white/10 rounded-xl shadow-2xl animate-in fade-in slide-in-from-right-5 w-full max-w-[350px]">
                         <Search size={18} className="text-gray-400 shrink-0 ml-1" />
                         <input
                             autoFocus

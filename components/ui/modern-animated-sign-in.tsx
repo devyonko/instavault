@@ -64,7 +64,7 @@ const Input = memo(
         <input
           type={type}
           className={cn(
-            `shadow-input dark:placeholder-text-neutral-600 flex h-10 w-full rounded-md border-none bg-gray-50 px-3 py-2 text-sm text-black transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 focus-visible:ring-[2px] focus-visible:ring-neutral-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
+            `shadow-input dark:placeholder-text-neutral-600 flex h-10 w-full rounded-md border-none bg-gray-50 px-3 py-2 text-base md:text-sm text-black transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 focus-visible:ring-[2px] focus-visible:ring-neutral-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
             className
           )}
           ref={ref}
@@ -230,8 +230,8 @@ const GifDisplay = memo(function GifDisplay({
   }, []);
 
   return (
-    <section className='relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg'>
-      <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center bg-black">
+    <section className='relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg p-4'>
+      <div className="relative w-full max-w-[300px] md:max-w-[400px] aspect-square rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center bg-black">
         <div
           className="tenor-gif-embed"
           data-postid="16175494423033203390"
@@ -333,7 +333,7 @@ const AnimatedForm = memo(function AnimatedForm({
   };
 
   return (
-    <section className='max-md:w-full flex flex-col gap-4 w-96 mx-auto'>
+    <section className='w-full max-w-sm mx-auto flex flex-col gap-4 px-4 sm:px-0'>
       <BoxReveal boxColor='var(--skeleton)' duration={0.3}>
         <h2 className='font-bold text-3xl text-neutral-800 dark:text-neutral-200'>
           {header}
@@ -543,7 +543,7 @@ const AuthTabs = memo(function AuthTabs({
   return (
     <div className='flex max-lg:justify-center w-full md:w-auto'>
       {/* Right Side */}
-      <div className='w-full lg:w-1/2 h-[100dvh] flex flex-col justify-center items-center max-lg:px-[10%]'>
+      <div className='w-full lg:w-1/2 min-h-[100dvh] flex flex-col justify-center items-center py-10 lg:py-0'>
         <AnimatedForm
           {...formFields}
           fieldPerRow={1}

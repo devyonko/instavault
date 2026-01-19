@@ -110,8 +110,9 @@
   /* Container */
   .profile-photo-container {
     position: relative;
-    width: 160px;
-    height: 160px;
+    width: 100%;
+    max-width: 160px;
+    aspect-ratio: 1/1;
     margin: 0 auto 32px;
   }
 
@@ -163,8 +164,8 @@
   /* Profile Photo */
   .profile-photo {
     position: relative;
-    width: 160px;
-    height: 160px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     border: 4px solid #1e1e2e;
     overflow: hidden;
@@ -232,6 +233,7 @@
     font-size: 48px;
     font-weight: 700;
     background: linear-gradient(135deg, #a855f7, #ec4899, #38bdf8);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 12px;
@@ -352,6 +354,7 @@
     font-weight: 700;
     margin-bottom: 32px;
     background: linear-gradient(135deg, #a855f7, #ec4899);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -472,6 +475,7 @@
     font-size: 36px;
     font-weight: 700;
     background: linear-gradient(135deg, #a855f7, #ec4899);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 8px;
@@ -537,11 +541,35 @@
 }
 
 /* 🔥 FORCE INTERACTION FIX (PRODUCTION) */
-html, body, #__next {
+html,
+body,
+#__next {
   pointer-events: auto !important;
   cursor: auto !important;
+  overflow-x: hidden;
+  /* Prevent horizontal scroll */
+  width: 100%;
+  /* Ensure full width */
+  min-height: 100dvh;
+  /* Use dynamic viewport height */
+  overscroll-behavior-y: none;
+  /* Prevent elastic bounce on mobile */
 }
-button, a, input, select, textarea {
+
+/* Mobile Safe Area Handling */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+button,
+a,
+input,
+select,
+textarea {
   pointer-events: auto !important;
   cursor: pointer !important;
+  touch-action: manipulation;
+  /* Improve touch response */
 }

@@ -13,6 +13,7 @@ import { ThumbnailImage } from '@/components/ui/thumbnail-image';
 import { SearchBar } from '@/components/ui/search-bar';
 import { HeaderButton } from '@/components/ui/header-button';
 import { SortDropdown } from '@/components/ui/sort-dropdown';
+import { AppHeader } from '@/components/layout/app-header';
 
 // --- Utility Functions ---
 
@@ -224,81 +225,68 @@ export default function GalleryPage() {
     }
 
     return (
-        <div className="flex min-h-screen bg-transparent text-white font-sans">
+        <div className="flex min-h-screen bg-slate-950 text-white font-sans overflow-x-hidden">
             <Sidebar />
 
-            <div className="flex-1 ml-0 lg:ml-[280px] p-4 lg:p-8 relative">
+            <div className="flex-1 ml-0 lg:ml-[280px] p-4 lg:p-8 relative min-h-screen">
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 lg:mb-8 gap-4 pt-16 lg:pt-0">
-                    <div>
-                        <h1 className="text-[32px] font-bold text-white leading-tight">Gallery</h1>
-                        <p className="text-white/60 text-[15px] mt-1">
-                            {loading && files.length === 0 ? "Loading..." : `All ${files.length} items from your vault`}
-                        </p>
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-4 relative z-0">
-                        {/* Selection Logic */}
-                        {isSelectionMode ? (
-                            <div className="flex items-center gap-2 bg-[#1a1a1a] p-1 rounded-xl border border-white/10 animate-in fade-in zoom-in-95 duration-200 relative z-20">
-                                <span className="text-sm font-medium text-white/80 px-3 whitespace-nowrap">
-                                    {selectedIds.size} selected
-                                </span>
-                                {selectedIds.size > 0 && (
-                                    <HeaderButton
-                                        variant="danger"
-                                        onClick={deleteSelected}
-                                        loading={deleting}
-                                        icon={Trash2}
-                                        className="h-8 px-3 rounded-lg text-xs" // Slightly smaller inside grouping
-                                    >
-                                        Delete
-                                    </HeaderButton>
-                                )}
+                {/* Header */}
+                <AppHeader
+                    title="Gallery"
+                    subtitle={loading && files.length === 0 ? "Loading..." : `All ${files.length} items from your vault`}
+                    searchPlaceholder="Search files..."
+                    onSearch={setSearchTerm}
+                >
+                    {/* Selection Logic */}
+                    {isSelectionMode ? (
+                        <div className="flex items-center gap-2 bg-[#1a1a1a] p-1 rounded-xl border border-white/10 animate-in fade-in zoom-in-95 duration-200 relative z-20">
+                            <span className="text-sm font-medium text-white/80 px-3 whitespace-nowrap">
+                                {selectedIds.size} selected
+                            </span>
+                            {selectedIds.size > 0 && (
                                 <HeaderButton
-                                    variant="ghost"
-                                    onClick={() => {
-                                        setIsSelectionMode(false);
-                                        setSelectedIds(new Set());
-                                    }}
+                                    variant="danger"
+                                    onClick={deleteSelected}
+                                    loading={deleting}
+                                    icon={Trash2}
                                     className="h-8 px-3 rounded-lg text-xs"
                                 >
-                                    Cancel
+                                    Delete
                                 </HeaderButton>
-                            </div>
-                        ) : (
+                            )}
                             <HeaderButton
-                                icon={CheckSquare}
-                                onClick={() => setIsSelectionMode(true)}
-                                className="z-20"
+                                variant="ghost"
+                                onClick={() => {
+                                    setIsSelectionMode(false);
+                                    setSelectedIds(new Set());
+                                }}
+                                className="h-8 px-3 rounded-lg text-xs"
                             >
-                                Select
+                                Cancel
                             </HeaderButton>
-                        )}
-
-                        {/* Search Unified */}
-                        <div className="relative z-10">
-                            <SearchBar
-                                variant="compact"
-                                placeholder="Search files..."
-                                onSearch={setSearchTerm}
-                                className="w-[180px] lg:w-[240px]"
-                            />
                         </div>
+                    ) : (
+                        <HeaderButton
+                            icon={CheckSquare}
+                            onClick={() => setIsSelectionMode(true)}
+                            className="z-20"
+                        >
+                            Select
+                        </HeaderButton>
+                    )}
 
-                        {/* Sort Dropdown */}
-                        <SortDropdown
-                            value={sortOption}
-                            onChange={(val) => setSortOption(val as SortOption)}
-                            options={[
-                                { label: "Newest First", value: "newest" },
-                                { label: "Oldest First", value: "oldest" },
-                                { label: "Size (High to Low)", value: "largest" },
-                                { label: "Size (Low to High)", value: "smallest" }
-                            ]}
-                        />
-                    </div>
-                </div>
+                    {/* Sort Dropdown */}
+                    <SortDropdown
+                        value={sortOption}
+                        onChange={(val) => setSortOption(val as SortOption)}
+                        options={[
+                            { label: "Newest First", value: "newest" },
+                            { label: "Oldest First", value: "oldest" },
+                            { label: "Size (High to Low)", value: "largest" },
+                            { label: "Size (Low to High)", value: "smallest" }
+                        ]}
+                    />
+                </AppHeader>
 
                 {/* Grid - OPTIMIZED: Smaller tiles, Vertical Aspect Ratio, Higher Density */}
                 {loading && files.length === 0 ? (

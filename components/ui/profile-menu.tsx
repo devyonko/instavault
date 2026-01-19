@@ -95,12 +95,13 @@ export default function ProfileMenu() {
                                 initial={isDesktop ? { opacity: 0, y: 10, scale: 0.95 } : { y: "100%" }}
                                 animate={isDesktop ? { opacity: 1, y: 0, scale: 1 } : { y: 0 }}
                                 exit={isDesktop ? { opacity: 0, y: 10, scale: 0.95 } : { y: "100%" }}
-                                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                                transition={{ type: "spring", damping: 30, stiffness: 300, mass: 0.8 }}
                                 className={`
                                     z-50 font-sans overflow-hidden
                                     fixed bottom-0 left-0 w-full bg-[#18181b] rounded-t-[2rem] border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]
+                                    max-h-[85vh] flex flex-col
                                     lg:absolute lg:top-full lg:right-0 lg:bottom-auto lg:left-auto lg:w-72 lg:mt-2
-                                    lg:bg-[#0f0f0f]/95 lg:backdrop-blur-xl lg:border lg:border-purple-500/30 lg:rounded-2xl lg:shadow-2xl lg:shadow-purple-500/20
+                                    lg:max-h-none lg:flex-none lg:bg-[#0f0f0f]/95 lg:backdrop-blur-xl lg:border lg:border-purple-500/30 lg:rounded-2xl lg:shadow-2xl lg:shadow-purple-500/20
                                 `}
                             >
                                 {/* Mobile Pull Indicator */}
