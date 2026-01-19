@@ -45,9 +45,28 @@ export default function SpyXLoginForm({ onForgotPassword, onSubmit }: SpyXLoginF
             {/* Google Button */}
             <button
                 type="button"
-                onClick={(e) => {
+                onClick={async (e) => {
+                    // STOP EVERYTHING
                     e.preventDefault();
-                    signIn('google', { callbackUrl: '/home' });
+                    e.stopPropagation();
+                    e.nativeEvent.stopImmediatePropagation();
+
+                    console.log("[Antigravity] 🛑 CLICK TRAPPED");
+                    console.log("[Antigravity] Component: SpyXLoginForm");
+                    console.log("[Antigravity] Event Type:", e.type);
+                    console.log("[Antigravity] Button Type:", e.currentTarget.getAttribute("type"));
+
+                    try {
+                        console.log("[Antigravity] 🚀 Invoking signIn('google')...");
+                        const result = await signIn('google', {
+                            callbackUrl: '/home',
+                            redirect: true
+                        });
+                        console.log("[Antigravity] ✅ signIn invoked, result:", result);
+                    } catch (error) {
+                        console.error("[Antigravity] 💥 signIn threw error:", error);
+                    }
+                    return false;
                 }}
                 className="relative z-50 cursor-pointer w-full h-14 bg-white hover:scale-[1.02] shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-lg rounded-xl flex items-center justify-center gap-3 transition-all duration-200 group"
             >

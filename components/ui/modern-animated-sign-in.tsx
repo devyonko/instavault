@@ -361,7 +361,24 @@ const AnimatedForm = memo(function AnimatedForm({
               type='button'
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => signIn('google')}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Production Debug: Google button clicked', {
+                  timestamp: new Date().toISOString(),
+                  isInsideForm: !!e.currentTarget.closest('form'),
+                  buttonType: e.currentTarget.getAttribute('type'),
+                  defaultPrevented: e.defaultPrevented
+                });
+
+                signIn('google', { callbackUrl: '/dashboard' })
+                  .then((result) => {
+                    console.log('Production Debug: signIn initiated', result);
+                  })
+                  .catch((error) => {
+                    console.error('Production Debug: signIn failed', error);
+                  });
+              }}
             >
               <span className='flex items-center justify-center w-full h-full gap-3'>
                 <Image
