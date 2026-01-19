@@ -36,65 +36,44 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     children
 }) => {
     return (
-        <header className="w-full flex-none pt-16 lg:pt-0 relative z-40">
-            {/* 
-              Constraint Wrapper
-              Matches the grid constraint: max-w-7xl mx-auto px-6 lg:px-10
-              py-6 lg:py-10 matches the top spacing of page content usually, 
-              but since this IS the top of the content, we generally want it inside the same padding context.
-              However, pages usually define the padding on the container.
-              
-              To ensure alignment, this component assumes it's placed INSIDE the main flex-1 container,
-              but potentially OUTSIDE the grid container if the grid container has its own padding.
-              
-              WAIT. The "Immutable Layout Rulebook" fix for Folders page put the Header INSIDE the max-w-7xl container.
-              So this component should behave as a block that fills width.
-              The PAGE is responsible for the max-w-7xl wrapper if it wraps EVERYTHING.
-              
-              BUT the objective says: "1. Create a global App Header... This component must Be w-full... Internally constrain content using: max-w-7xl mx-auto px-6".
-              
-              This suggests the PAGE should likely be:
-              <div className="flex-1 ...">
-                 <AppHeader ... />
-                 <div className="max-w-7xl mx-auto px-6 ...">
-                    <Grid />
-                 </div>
-              </div>
-              OR
-              <div className="flex-1 ...">
-                 <div className="max-w-7xl mx-auto ...">
-                    <AppHeader ... />
-                    <Grid ... />
-                 </div>
-              </div>
-              
-              If the AppHeader internally constrains content, then it should be placed in a full-width context.
-              Let's follow the instruction "Internally constrain content using: max-w-7xl mx-auto px-6".
-            */}
+        <header className="w-full flex-none relative z-40 sticky top-0 bg-[#030303]/80 backdrop-blur-md border-b border-white/5 md:bg-transparent md:backdrop-blur-none md:border-none md:static">
 
-            <div className="max-w-7xl mx-auto px-4 lg:px-8 w-full">
-                <div className="flex flex-row flex-wrap md:flex-nowrap items-center justify-between gap-4 mb-6 lg:mb-10 lg:pt-8">
+            <div className="max-w-7xl mx-auto px-4 lg:px-8 w-full py-4 lg:py-10">
+                {/* 
+                    MOBILE LAYOUT STRATEGY (Grid):
+                    [Hamburger Space] [Title (Centered)] [Profile]
+                    [       Search / Actions (Full Width)      ]
+                */}
+                <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-4">
 
-                    {/* LEFT SLOT: Title & Subtitle */}
-                    <div className="order-1 w-auto md:w-auto text-left">
-                        <h1 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent leading-tight">
-                            {title}
-                        </h1>
-                        {subtitle && (
-                            <div className="text-white/60 text-[15px] mt-1">
-                                {subtitle}
-                            </div>
-                        )}
+                    {/* TOP ROW (Mobile) / LEFT & RIGHT (Desktop) */}
+                    <div className="grid grid-cols-[40px_1fr_auto] items-center md:flex md:w-full md:justify-between">
+
+                        {/* 1. HAMBURGER SPACER (Mobile Only) */}
+                        <div className="md:hidden"></div>
+
+                        {/* 2. TITLE SECTION */}
+                        <div className="text-center md:text-left md:flex-1">
+                            <h1 className="text-xl lg:text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent leading-tight truncate">
+                                {title}
+                            </h1>
+                            {subtitle && (
+                                <div className="text-white/60 text-[11px] lg:text-[15px] mt-0.5 lg:mt-1 truncate max-w-[200px] mx-auto md:mx-0 md:max-w-none">
+                                    {subtitle}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* 3. PROFILE (Always Top Right) */}
+                        <div className="flex justify-end md:order-last md:ml-4">
+                            <ProfileMenu />
+                        </div>
                     </div>
 
-                    {/* RIGHT SLOT (Mobile): Profile Menu -> Moves to Order 2 on Mobile (Top Right) */}
-                    <div className="order-2 md:order-3 relative z-50">
-                        <ProfileMenu />
-                    </div>
+                    {/* BOTTOM ROW (Mobile) / CENTER (Desktop) */}
+                    <div className="w-full md:w-auto flex flex-wrap items-center justify-start md:justify-end gap-3 lg:gap-4">
 
-                    {/* CENTER SLOT: Search & Actions -> Moves to Order 3 on Mobile (New Row) */}
-                    <div className="order-3 md:order-2 w-full md:w-auto flex flex-wrap items-center justify-start md:justify-end gap-3 lg:gap-4 relative z-0">
-                        {/* Search (Optional) */}
+                        {/* Search */}
                         {onSearch && (
                             <div className="w-full md:w-auto">
                                 <SearchBar
@@ -106,9 +85,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
                             </div>
                         )}
 
-                        {/* Custom Actions */}
+                        {/* Actions (Filter, Buttons) */}
                         {children}
                     </div>
+
                 </div>
             </div>
         </header>

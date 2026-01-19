@@ -192,7 +192,7 @@ export default function FoldersPage() {
                         icon={Plus}
                         className="h-10"
                     >
-                        New Folder
+                        <span className="hidden md:inline">New Folder</span>
                     </HeaderButton>
                 </AppHeader>
 
