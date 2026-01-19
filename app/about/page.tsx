@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Github, Linkedin, Mail, ExternalLink, Code, BarChart, Layers, MapPin, Globe, Cpu } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import Sidebar from '@/components/ui/sidebar';
 import { CardContainer, CardBody, CardItem } from '@/components/ui/three-d-card';
 

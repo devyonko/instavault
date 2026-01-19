@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Home, Grid, Folder, Settings, Menu, X, Info, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 

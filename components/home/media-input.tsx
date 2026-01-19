@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Download, Loader2, Folder, Plus, X, Search, CheckCircle2, ChevronRight, FolderPlus } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 

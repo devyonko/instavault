@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bell, CheckCircle, AlertCircle, Download, Info, X } from 'lucide-react';
 import { useActivity, ActivityItem } from '@/components/providers/activity-provider';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function NotificationBell() {
     const { activities, unreadCount, markAsRead, markAllAsRead } = useActivity();

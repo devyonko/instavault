@@ -3,7 +3,7 @@
 import React from 'react';
 import { LayoutGrid, ArrowRight, Image as ImageIcon } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 
 export default function RecentActivity() {
     const items = [

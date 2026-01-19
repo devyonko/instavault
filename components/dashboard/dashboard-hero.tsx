@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link2, Download } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 
 interface DashboardHeroProps {
   anyaState: 'idle' | 'loading' | 'success' | 'error' | 'empty';

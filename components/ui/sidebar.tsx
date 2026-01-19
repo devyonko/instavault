@@ -2,7 +2,7 @@ import React from 'react';
 import { Home, Grid, Folder, Settings, Layers, Info } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import MobileMenu from './mobile-menu';
 import { useSession } from 'next-auth/react';
 

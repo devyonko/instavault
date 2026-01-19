@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Folder, Plus, X, Search, CheckCircle2, ChevronRight, FolderPlus } from 'lucide-react';
 import { BarsLoader } from '@/components/ui/bars-loader';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { useSession } from 'next-auth/react';
 
