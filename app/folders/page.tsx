@@ -189,10 +189,10 @@ export default function FoldersPage() {
                     <HeaderButton
                         variant="primary"
                         onClick={() => setCreating(true)}
-                        icon={Plus}
-                        className="h-10"
+                        icon={FolderPlus}
+                        className="h-10 w-10 md:w-auto p-0 md:px-4 justify-center"
                     >
-                        <span className="hidden md:inline">New Folder</span>
+                        <span className="hidden md:inline ml-2">New Folder</span>
                     </HeaderButton>
                 </AppHeader>
 

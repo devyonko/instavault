@@ -25,6 +25,8 @@ import { useActivity } from '@/components/providers/activity-provider';
 import { NotificationBell } from '@/components/ui/notification-bell';
 import { useDownload } from '@/components/providers/download-provider';
 
+import { Home } from 'lucide-react';
+
 export default function HomePage() {
     const { data: session } = useSession();
     const { activities } = useActivity();
@@ -198,13 +200,30 @@ export default function HomePage() {
                     initialUrl={inputValue}
                 />
 
+
+                {/* ... existing code ... */}
+
                 <div className="max-w-[1400px] mx-auto p-4 lg:p-8 relative min-h-full pb-20 lg:pb-8">
                     <AppHeader
-                        title="Dashboard"
-                        onSearch={() => { }} // Visual parity, functionality was not connected in source
+                        title={
+                            <div className="flex items-center gap-2">
+                                <Home className="md:hidden text-[#a855f7]" size={24} />
+                                <span className="hidden md:block">Dashboard</span>
+                            </div>
+                        }
+                        onSearch={() => { }}
+                        actions={<NotificationBell />}
                     >
-                        <NotificationBell />
+                        {/* No children (actions) for Home, just Notification in 'actions' slot */}
                     </AppHeader>
+
+                    {/* Mobile Only Page Title */}
+                    <div className="md:hidden px-2 mb-6 animate-in slide-in-from-left-4 duration-500">
+                        <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                            Dashboard
+                        </h1>
+                        <p className="text-white/60 text-sm mt-1">Welcome back, {session?.user?.name}</p>
+                    </div>
 
                     {/* Dashboard Content */}
                     <DashboardHero

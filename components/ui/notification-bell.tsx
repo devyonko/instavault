@@ -48,7 +48,7 @@ export function NotificationBell() {
                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        className="absolute right-0 mt-2 w-80 bg-[#1e293b] border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden"
+                        className="fixed top-20 left-4 right-4 md:absolute md:top-full md:left-auto md:right-0 md:mt-2 md:w-80 bg-[#1e293b] border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden"
                     >
                         <div className="flex items-center justify-between p-4 border-b border-white/5 bg-[#1e293b]">
                             <h3 className="font-semibold text-white">Notifications</h3>
