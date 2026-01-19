@@ -59,17 +59,17 @@ export default function LoginPage() {
         <div className='flex h-screen w-full bg-[#030303] selection:bg-stone-500/30'>
             <div className='flex h-full w-full'>
                 {/* Left Side */}
-                <span className='flex flex-col justify-center w-1/2 max-lg:hidden relative items-center overflow-hidden'>
+                <div className='flex flex-col justify-center w-1/2 max-lg:hidden relative items-center overflow-hidden'>
                     <div className="absolute inset-0 z-0 bg-[#05050a]">
                         <MatrixBackground />
                     </div>
                     <div className="z-10 relative">
                         <GifDisplay gifUrl="placeholder" />
                     </div>
-                </span>
+                </div>
 
                 {/* Right Side */}
-                <span className='w-1/2 h-[100dvh] flex flex-col justify-center items-center max-lg:w-full max-lg:px-[10%] relative overflow-hidden'>
+                <div className='w-1/2 h-[100dvh] flex flex-col justify-center items-center max-lg:w-full max-lg:px-[10%] relative overflow-hidden'>
                     {/* Subtle Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-pink-900/20 z-0 pointer-events-none" />
 
@@ -83,7 +83,7 @@ export default function LoginPage() {
                             onForgotPassword={goToForgotPassword}
                         />
                     </div>
-                </span>
+                </div>
             </div>
         </div>
     );
